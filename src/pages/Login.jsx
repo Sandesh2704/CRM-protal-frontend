@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -85,6 +85,10 @@ export default function Login() {
         }
     };
 
+    
+    
+
+
     return (
         <>
             <div className= 'bg-gradiant flex justify-center items-center w-screen h-screen px-4 md:px-7 lg:px-20' >
@@ -122,6 +126,8 @@ export default function Login() {
                     </form>
                 </div>
             </div>
+
+          
         </>
     )
 }

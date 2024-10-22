@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAuth } from '../authProvider/AuthProvider';
-import Button from '../component/Button';
+import { useAuth } from '../../authProvider/AuthProvider';
+import Button from '../../component/Button';
 
 
 export default function Profile() {
@@ -23,7 +23,7 @@ export default function Profile() {
                         <ProfileInfo label='City' value={user.city} />
                         <ProfileInfo label='State' value={user.state} />
                         <ProfileInfo label='Gender' value={user.gender} />
-                        <ProfileInfo label='Job Role' value={user.JobPosition} />
+                        <ProfileInfo label='Job Role' value={user.jobPosition} />
                         <ProfileInfo label='Job Role' value={user.jobRole} />
                         <ProfileInfo label='Department' value={user.department} />
                     </div>

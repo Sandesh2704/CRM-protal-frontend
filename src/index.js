@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from './authProvider/AuthProvider'
 import { ToastContainer } from 'react-toastify';
-import RoutingSetup from './routingSetup/RoutingSetup';
+import RoutingSetup from './mainRouteSetup/RoutingSetup';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

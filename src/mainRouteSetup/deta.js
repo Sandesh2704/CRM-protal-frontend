@@ -1,4 +1,4 @@
-[
+
     {
         founder: 'name',
         managerList: [
@@ -38,5 +38,5 @@
             }
         ]
     }
-    ]
+  
             

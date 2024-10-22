@@ -11,6 +11,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root{
+  --gradiant : linear-gradient(266deg, #a54de3 32%, #ff08e9 71%);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -31,7 +35,7 @@ code {
 /* Customs-popup start here*/
 .custom-popup {
   border-radius: 10px;
-  border-bottom: 10px solid var(--theme-color-1); /* Set border color */ /* Optional: Set border radius */
+  border-bottom: 10px solid black; /* Set border color */ /* Optional: Set border radius */
 }
 
 .custom-popup .swal2-title {
@@ -40,7 +44,7 @@ code {
 }
 
 .custom-popup .swal2-confirm {
-  background-color: var(--theme-color); /* Set button background color */
+  background-color: var(--gradiant); /* Set button background color */
   color: #ffffff; /* Set button text color */
   padding: 8px 26px;
 }
