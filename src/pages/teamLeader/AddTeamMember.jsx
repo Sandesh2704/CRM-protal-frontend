@@ -27,31 +27,6 @@ export default function AddTeamMember() {
         gender: '',
     });
 
-    useEffect(() => {
-        const fetchTeamMembers = async () => {
-            if (teamLeaderId) {
-                try {
-                    console.log('Fetching team members for:', teamLeaderId);
-                    const response = await axios.get(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/${teamLeaderId}`);
-                    console.log('Team members fetched:', response.data);
-                } catch (error) {
-                    console.error('Failed to load team members:', error.response?.data || error.message);
-                }
-            } else {
-                console.log("No team leader ID available");
-            }
-        };
-
-        fetchTeamMembers();
-    }, [teamLeaderId]);
-
-    const handleChange = (e) => {
-        setMemberData({
-            ...memberData,
-            [e.target.name]: e.target.value
-        });
-    };
-
     const [previewSrc, setPreviewSrc] = useState('');
 
     useEffect(() => {
@@ -70,56 +45,109 @@ export default function AddTeamMember() {
       }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log('Submitting member data:', memberData);
-        console.log('Team Leader ID:', teamLeaderId);
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     console.log('Submitting member data:', memberData);
+    //     console.log('Team Leader ID:', teamLeaderId);
 
-        const formData = new FormData();
+    //     const formData = new FormData();
 
-        // Append user data to formData
-        for (const key in memberData) {
-          formData.append(key, memberData[key]);
-        }
+    //     // Append user data to formData
+    //     for (const key in memberData) {
+    //       formData.append(key, memberData[key]);
+    //     }
   
 
-        try {
-            const response = await axios.post(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/add-member`, {
-                teamLeaderId,
-                memberData
-            });
-            console.log('Response from server:', response.data);
+    //     try {
+    //         const response = await axios.post(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/add-member`, {
+    //             teamLeaderId,
+    //             memberData
+    //         });
+    //         console.log('Response from server:', response.data);
 
-            setMemberData({ username: '',
-                email: '',
-                number: '',
-                city: '',
-                state: '',
-                gender: '',
-                password: '',
-                jobRole: "",
-                profileIMG: null, // Reset the image file
-                department: "",
-                jobPosition: "" });
+    //         setMemberData({ username: '',
+    //             email: '',
+    //             number: '',
+    //             city: '',
+    //             state: '',
+    //             gender: '',
+    //             password: '',
+    //             jobRole: "",
+    //             profileIMG: null, // Reset the image file
+    //             department: "",
+    //             jobPosition: "" });
 
-                setPreviewSrc('');
+    //             setPreviewSrc('');
 
-      Swal.fire({
-        title: 'Your message has been sent successfully!',
-        icon: 'success',
-        confirmButtonText: 'OK',
-        customClass: {
-          popup: 'custom-popup'
-        }
-      });
+    //   Swal.fire({
+    //     title: 'Your message has been sent successfully!',
+    //     icon: 'success',
+    //     confirmButtonText: 'OK',
+    //     customClass: {
+    //       popup: 'custom-popup'
+    //     }
+    //   });
 
 
-            const fetchResponse = await axios.get(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/${teamLeaderId}`);
-            console.log('Updated team members:', fetchResponse.data.teamMembers);
-        } catch (error) {
-            console.error('Error adding new member:', error.response?.data || error.message);
-        }
-    };
+    //         const fetchResponse = await axios.get(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/${teamLeaderId}`);
+    //         console.log('Updated team members:', fetchResponse.data.teamMembers);
+    //     } catch (error) {
+    //         console.error('Error adding new member:', error.response?.data || error.message);
+    //     }
+    // };
+
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      console.log('Submitting member data:', memberData);
+      console.log('Team Leader ID:', teamLeaderId);
+  
+      const formData = new FormData();
+  
+      // Append user data to formData
+      formData.append('teamLeaderId', teamLeaderId);
+      for (const key in memberData) {
+        formData.append(key, memberData[key]);
+      }
+  
+      try {
+          const response = await axios.post(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/add-member`, formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data',
+              },
+          });
+          console.log('Response from server:', response.data);
+  
+          setMemberData({
+              username: '',
+              email: '',
+              number: '',
+              city: '',
+              state: '',
+              gender: '',
+              password: '',
+              jobRole: "",
+              profileIMG: null, // Reset the image file
+              department: "",
+              jobPosition: ""
+          });
+          setPreviewSrc('');
+  
+          Swal.fire({
+              title: 'Your message has been sent successfully!',
+              icon: 'success',
+              confirmButtonText: 'OK',
+              customClass: {
+                  popup: 'custom-popup'
+              }
+          });
+  
+          const fetchResponse = await axios.get(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/${teamLeaderId}`);
+          console.log('Updated team members:', fetchResponse.data.teamMembers);
+      } catch (error) {
+          console.error('Error adding new member:', error.response?.data || error.message);
+      }
+  };
 
     const deleteImage = () => {
         console.log('Deleting image');
@@ -140,45 +168,7 @@ export default function AddTeamMember() {
     return (
         <>
             <h1>Team Leader Dashboard</h1>
-            <div>
-                <h2>Add New Team Member</h2>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={memberData.username}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={memberData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="number"
-                        placeholder="Phone Number"
-                        value={memberData.number}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={memberData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                    <button type="submit">Add Member</button>
-                </form>
-            </div>
-
+       
 
 
             <div className='w-[100%]    bg-white shadow-lg shadow-black/5 rounded-2xl '>
@@ -361,3 +351,43 @@ export default function AddTeamMember() {
         </>
     );
 }
+
+
+     {/* <div>
+                <h2>Add New Team Member</h2>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={memberData.username}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={memberData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="number"
+                        placeholder="Phone Number"
+                        value={memberData.number}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={memberData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                    <button type="submit">Add Member</button>
+                </form>
+            </div> */}

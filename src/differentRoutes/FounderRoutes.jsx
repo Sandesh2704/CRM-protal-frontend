@@ -1,22 +1,27 @@
 import { Route, Routes, } from 'react-router-dom';
-import Dashboard from '../pages/teamLeader/Dashboard';
+import Dashboard from '../pages/founder/Dashboard';
 import Profile from '../pages/teamLeader/Profile';
-import ProfileCardDetail from '../pages/teamLeader/ProfileCardDetail';
-import TeamMember from '../pages/teamLeader/TeamMember';
-import RegisterUser from '../pages/founder/RegisterUser';
-import AddTeamMember from '../pages/teamLeader/AddTeamMember';
 import Layout from '../layout/Layout';
+import AllEmployes from '../pages/founder/AllEmployes';
+import AllManagers from '../pages/founder/AllManagers';
+import AddNewManager from '../pages/founder/AddNewManager';
+import EmployeDetails from '../pages/founder/EmployeDetails';
 
-export default function  FounderRoutes() {
+
+export default function FounderRoutes() {
   return (
     <>
- <Routes path="/" element={<Layout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="profileCardDetail/:slug" element={<ProfileCardDetail />} />
-        <Route path="teammember" element={<TeamMember />} />
-        <Route path="registerUser" element={<RegisterUser />} />
-        <Route path="addteammember" element={<AddTeamMember />} />
+      <Routes>
+        {/* Parent route with Layout component */}
+        <Route path="/" element={<Layout />}>
+          {/* Nested routes */}
+          <Route index element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="employees" element={<AllEmployes />} />
+          <Route path="add-new-manager" element={<AddNewManager />} />
+          <Route path="manager-list" element={<AllManagers />} />
+          <Route path="employe-details/:slug" element={<EmployeDetails/>} />
+        </Route>
       </Routes>
     </>
   )

@@ -35,7 +35,7 @@ code {
 /* Customs-popup start here*/
 .custom-popup {
   border-radius: 10px;
-  border-bottom: 10px solid black; /* Set border color */ /* Optional: Set border radius */
+  border-bottom: 10px solid rgb(1, 21, 59); /* Set border color */ /* Optional: Set border radius */
 }
 
 .custom-popup .swal2-title {
@@ -44,13 +44,13 @@ code {
 }
 
 .custom-popup .swal2-confirm {
-  background-color: var(--gradiant); /* Set button background color */
-  color: #ffffff; /* Set button text color */
+  background-color:  #ec0bd9 ; /* Set button background color */
+  color: #fffbfb; /* Set button text color */
   padding: 8px 26px;
 }
 
 .custom-popup .swal2-icon {
-  border-color: var(--theme-color);
+  border-color: var(--gradiant);
 }
 
 @media only screen and (max-width: 1091px){ 

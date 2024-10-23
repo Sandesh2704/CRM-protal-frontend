@@ -3,7 +3,6 @@ import Dashboard from '../pages/teamLeader/Dashboard';
 import Profile from '../pages/teamLeader/Profile';
 import ProfileCardDetail from '../pages/teamLeader/ProfileCardDetail';
 import TeamMember from '../pages/teamLeader/TeamMember';
-import RegisterUser from '../pages/founder/RegisterUser';
 import AddTeamMember from '../pages/teamLeader/AddTeamMember';
 import Layout from '../layout/Layout';
 export default function TeamLeaderRoutes() {

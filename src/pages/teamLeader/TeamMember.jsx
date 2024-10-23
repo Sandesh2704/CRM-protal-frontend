@@ -41,7 +41,7 @@ export default function TeamMember() {
                             return (
                                 <div class="bg-white shadow-md rounded-lg py-3" key={index}>
                                     <div class="photo-wrapper p-2">
-                                        <img class="w-40 h-40 rounded-full mx-auto" src={`http://localhost:8000/${profileIMG}`} alt="John Doe" />
+                                        <img class="w-40 h-40 rounded-full mx-auto" src={`${process.env.REACT_APP_DOMAIN_URL}/${profileIMG}`} alt="John Doe" />
                                     </div>
                                     <div class="p-2">
                                         <h3 class="text-center text-xl text-gray-900 font-medium leading-8">{username}</h3>

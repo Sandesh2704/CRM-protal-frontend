@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
     }, [userAuthentication]);  // Add `userAuthentication` as a dependency
 
     const userJobPosition = user ? user.jobPosition : null;
-console.log(userJobPosition)
+console.log('userJobPosition', userJobPosition)
     return (
         <AuthContext.Provider value={{ storeTokenInLS, LogoutUser, user, token, isLoggedIn, userJobPosition}}>
             {children}

@@ -35,7 +35,7 @@ export default function Navbar({ toggleSidebar, isOpen }) {
         </button>
 
         <div className={`${!isOpen ? 'flex' : 'hidden'}`}>
-<img src={logo} alt="logo" srcset="" className='w-32'/>
+<img src={logo} alt="logo" className='w-32'/>
           </div>
         
         <div className='flex items-center gap-5'>

@@ -15,8 +15,8 @@ export default function SideBar({ isOpen, toggleSidebar }) {
     Founder: [
       { path: '/founder', label: 'Dashboard', icon: <CiGrid41 /> },
       { path: '/founder/employees', label: 'All Employees', icon: <LuUsers /> },
-      { path: '/founder/assign-task', label: 'Assign Task', icon: <LuUsers /> },
-      { path: '/founder/applications', label: 'View Applications', icon: <LuUsers /> },
+      { path: '/founder/manager-list', label: 'Managers', icon: <LuUsers /> },
+      { path: '/founder/add-new-manager', label: 'Assign New Manager', icon: <LuUsers /> },
     ],
     Manager: [
       { path: '/manager', label: 'Dashboard', icon: <CiGrid41 /> },
@@ -43,7 +43,7 @@ export default function SideBar({ isOpen, toggleSidebar }) {
         style={{ borderColor: `linear-gradient(266deg, #a54de3 32%, #ff08e9 71%)` }}>
         <div className={` flex items-center  shadow shadow-white/5 justify-center border-b ${!isOpen ? 'py-4' : 'py-2'}`}>
           <div className={`${!isOpen ? 'hidden' : ''}`}>
-            <img src={logo} alt="logo" srcset="" className='w-32' />
+            <img src={logo} alt="logo" className='w-32' />
           </div>
 
 

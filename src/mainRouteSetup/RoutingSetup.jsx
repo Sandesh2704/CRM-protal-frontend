@@ -25,15 +25,30 @@ export default function RoutingSetup() {
     return children;
   };
 
+
+  // useEffect(() => {
+  //   const handleContextMenu = (e) => e.preventDefault();
+  //   const handleKeyDown = (e) => {
+  //     if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+  //       e.preventDefault();
+  //     }
+  //   };
+  //   document.addEventListener('contextmenu', handleContextMenu);
+  //   document.addEventListener('keydown', handleKeyDown);
+
+  //   return () => {
+  //     document.removeEventListener('contextmenu', handleContextMenu);
+  //     document.removeEventListener('keydown', handleKeyDown);
+  //   };
+  // }, []);
+
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/ragistrationform" element={<RagistrationForm />} />
-
         {/* Logout Route accessible to all */}
         <Route path="/logout" element={<Logout />} />
-
         {/* Default redirect based on role */}
         <Route
           path="/"

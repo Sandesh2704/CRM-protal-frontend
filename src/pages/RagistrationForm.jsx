@@ -69,13 +69,13 @@ export default function RagistrationForm() {
 
 
   const validateInputs = () => {
-    const { username, email, number, password, department, jobPosition } = registerUser;
+    const { username, email, number, password,  jobPosition } = registerUser;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/; // Validate phone number with exactly 10 digits
     const passwordLength = password.length;
 
-    if (!username || !email || !number || !password || !department || !jobPosition) {
-      toast.error('Username, email, phone number, and password are required.', { position: "top-right", autoClose: 3000, });
+    if (!username || !email || !number || !password || !jobPosition) {
+      toast.error('Username, email, phone number, jobPosition and password are required.', { position: "top-right", autoClose: 3000, });
       return false;
     }
 

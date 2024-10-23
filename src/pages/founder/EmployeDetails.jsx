@@ -1,18 +1,20 @@
-
+import React from 'react'
 import { useLocation } from 'react-router-dom';
 
-export default function ProfileCardDetail() {
+export default function EmployeDetails() {
 
-  const location = useLocation();
-  const memberDetails = location.state?.memberDetails;  
-  if (!memberDetails) {
-    return <div>No member details available.</div>;
-  }
+    const location = useLocation();
+    const memberDetails = location.state?.memberDetails;  
+    if (!memberDetails) {
+      return <div>No member details available.</div>;
+    }
+  
+    const { username, JobPosition, email, phone, profileIMG, bio, joinedAt } = memberDetails;
+  
 
-  const { username, JobPosition, email, phone, profileIMG, bio, joinedAt } = memberDetails;
-
-  return (
-    <div>
+    return (
+        <div>
+           <div>
       <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6">
         <div className="photo-wrapper p-4">
           <img className="w-40 h-40 rounded-full mx-auto" src={`http://localhost:8000/${profileIMG}`} alt={username} />
@@ -33,5 +35,6 @@ export default function ProfileCardDetail() {
         </div>
       </div>
     </div>
-  )
+        </div>
+    )
 }
