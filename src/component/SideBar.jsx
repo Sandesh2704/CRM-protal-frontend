@@ -1,5 +1,4 @@
 import logo from '../assets/crm-logo.png'
-
 import { NavLink } from 'react-router-dom';
 import { CiGrid41 } from 'react-icons/ci';
 import { TbPinnedFilled } from 'react-icons/tb';
@@ -8,7 +7,6 @@ import { useAuth } from '../authProvider/AuthProvider';
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 
 export default function SideBar({ isOpen, toggleSidebar }) {
-
   const { userJobPosition } = useAuth();
 
   const roleBasedLinks = {
@@ -21,8 +19,8 @@ export default function SideBar({ isOpen, toggleSidebar }) {
     Manager: [
       { path: '/manager', label: 'Dashboard', icon: <CiGrid41 /> },
       { path: '/manager/team-leaders', label: 'Team Leaders', icon: <CiGrid41 /> },
-      { path: '/manager/assign-leader', label: 'Assign Team Leader', icon: <CiGrid41 /> },
-      { path: '/manager/attendance', label: 'Attendance Chart', icon: <CiGrid41 /> },
+      { path: '/manager/add-team-leader', label: 'Add Team Leader', icon: <CiGrid41 /> },
+      { path: '/manager/attendance-chart', label: 'Attendance Chart', icon: <CiGrid41 /> },
     ],
     'Team Leader': [
       { path: '/team-leader', label: 'Dashboard', icon: <CiGrid41 /> },
@@ -65,6 +63,7 @@ export default function SideBar({ isOpen, toggleSidebar }) {
     </>
   )
 }
+
 
 
 const MenuItem = ({ URL, icon, label, isOpen }) => {

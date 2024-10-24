@@ -9,11 +9,12 @@ import SelectInput from '../../component/SelectInput';
 import Button from '../../component/Button';
 import Swal from 'sweetalert2';
 
-export default function AddTeamMember() {
-    const { user } = useAuth();
-    const teamLeaderId = user?._id;
+export default function AddTeamLeader() {
 
-    const [memberData, setMemberData] = useState({
+  const { user } = useAuth();
+    const managerId = user?._id;
+
+    const [newManager, setNewManager] = useState({
         username: '',
         email: '',
         number: '',
@@ -30,16 +31,16 @@ export default function AddTeamMember() {
     const [previewSrc, setPreviewSrc] = useState('');
 
     useEffect(() => {
-      if (memberData.profileIMG) {
-        const objectUrl = URL.createObjectURL(memberData.profileIMG);
+      if (newManager.profileIMG) {
+        const objectUrl = URL.createObjectURL(newManager.profileIMG);
         setPreviewSrc(objectUrl);
         return () => URL.revokeObjectURL(objectUrl); // Clean up the object URL
       }
-    }, [memberData.profileIMG]);
+    }, [newManager.profileIMG]);
   
     const inputHandler = (e) => {
       const { name, value, files } = e.target;
-      setMemberData((prev) => ({
+      setNewManager((prev) => ({
         ...prev,
         [name]: files ? files[0] : value
       }));
@@ -48,26 +49,26 @@ export default function AddTeamMember() {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log('Submitting member data:', memberData);
-      console.log('Team Leader ID:', teamLeaderId);
+      console.log('Submitting member data:', newManager);
+      console.log('Team Leader ID:', managerId);
   
       const formData = new FormData();
   
       // Append user data to formData
-      formData.append('teamLeaderId', teamLeaderId);
-      for (const key in memberData) {
-        formData.append(key, memberData[key]);
+      formData.append('managerId', managerId);
+      for (const key in newManager) {
+        formData.append(key, newManager[key]);
       }
   
       try {
-          const response = await axios.post(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/add-member`, formData, {
+          const response = await axios.post(`${process.env.REACT_APP_DOMAIN_URL}/managerManage/manager/add-team-leader`, formData, {
               headers: {
                   'Content-Type': 'multipart/form-data',
               },
           });
           console.log('Response from server:', response.data);
   
-          setMemberData({
+          setNewManager({
               username: '',
               email: '',
               number: '',
@@ -91,8 +92,6 @@ export default function AddTeamMember() {
               }
           });
   
-          const fetchResponse = await axios.get(`${process.env.REACT_APP_DOMAIN_URL}/teamManage/team/${teamLeaderId}`);
-          console.log('Updated team members:', fetchResponse.data.teamMembers);
       } catch (error) {
           console.error('Error adding new member:', error.response?.data || error.message);
       }
@@ -100,7 +99,7 @@ export default function AddTeamMember() {
 
     const deleteImage = () => {
         console.log('Deleting image');
-        setMemberData((prev) => ({
+        setNewManager((prev) => ({
           ...prev,
           profileIMG: null // Correctly set to null
         }));
@@ -114,13 +113,9 @@ export default function AddTeamMember() {
       };
     
 
-    return (
-        <>
-            <h1>Team Leader Dashboard</h1>
-       
-
-
-            <div className='w-[100%]    bg-white shadow-lg shadow-black/5 rounded-2xl '>
+  return (
+    <div>
+          <div className='w-[100%]    bg-white shadow-lg shadow-black/5 rounded-2xl '>
       <div className='px-7 py-6 border-b border-dotted'>
         <h3 className='text-theme2 font-medium text-xl'>Add New Admin Form</h3>
       </div>
@@ -128,7 +123,7 @@ export default function AddTeamMember() {
         <form onSubmit={handleSubmit}>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  lg:grid-rows-4 gap-x-7 gap-y-10'>
             <div className='h-full w-full  md:row-span-2 lg:row-span-2'>
-              {memberData.profileIMG ? (
+              {newManager.profileIMG ? (
                 <div className='relative flex justify-center'>
                   <img
                     src={previewSrc}
@@ -171,14 +166,14 @@ export default function AddTeamMember() {
               placeholder='Name*'
               label='Name*'
               name='username'
-              value={memberData.username}
+              value={newManager.username}
               inputHandler={inputHandler} />
             <TextInput
               type='email'
               label='Email*'
               placeholder='Email*'
               name="email"
-              value={memberData.email}
+              value={newManager.email}
               inputHandler={inputHandler} />
 
             <TextInput
@@ -186,7 +181,7 @@ export default function AddTeamMember() {
               placeholder='Number*'
               label='Number*'
               name='number'
-              value={memberData.number}
+              value={newManager.number}
               inputHandler={inputHandler} />
 
             <div>
@@ -196,7 +191,7 @@ export default function AddTeamMember() {
                   name='password'
                   type={passwordShow ? 'text' : 'password'}
                   placeholder='Password'
-                  value={memberData.password}
+                  value={newManager.password}
                   onChange={inputHandler}
                   className="placeholder:text-zinc-500 text-theme5 outline-none text-sm"
                 />
@@ -209,7 +204,7 @@ export default function AddTeamMember() {
             <SelectInput
               label="Department*"
               name="department"
-              value={memberData.department}
+              value={newManager.department}
               inputHandler={inputHandler}
               options={[
                 { value: 'IT', label: 'IT' },
@@ -221,7 +216,7 @@ export default function AddTeamMember() {
             <SelectInput
               label="Job Position*"
               name="jobPosition"
-              value={memberData.jobPosition}
+              value={newManager.jobPosition}
               inputHandler={inputHandler}
 
               options={[
@@ -232,14 +227,14 @@ export default function AddTeamMember() {
               ]}
             />
 
-            {memberData.jobPosition === 'Employee' && (
+            {newManager.jobPosition === 'Employee' && (
               <>
                 <TextInput
                   type='text'
                   label='Job Role*'
                   placeholder='Ex:- Developer, HR, Intern'
                   name="jobRole"
-                  value={memberData.jobRole}
+                  value={newManager.jobRole}
                   inputHandler={inputHandler} />
               </>
             )}
@@ -250,14 +245,14 @@ export default function AddTeamMember() {
               placeholder='City*'
               label='City*'
               name='city'
-              value={memberData.city}
+              value={newManager.city}
               inputHandler={inputHandler} />
             <TextInput
               type='text'
               label='State*'
               placeholder='State*'
               name="state"
-              value={memberData.state}
+              value={newManager.state}
               inputHandler={inputHandler} />
 
             <div>
@@ -268,7 +263,7 @@ export default function AddTeamMember() {
                     type="radio"
                     name="gender"
                     value="male"
-                    checked={memberData.gender === 'male'}
+                    checked={newManager.gender === 'male'}
                     onChange={inputHandler}
                     className='text-theme5 placeholder:text-zinc-500 outline-none text-sm text-gray-900'
                   />
@@ -280,7 +275,7 @@ export default function AddTeamMember() {
                     type="radio"
                     name="gender"
                     value="female"
-                    checked={memberData.gender === 'female'}
+                    checked={newManager.gender === 'female'}
                     onChange={inputHandler}
                   />
                   <label className="text-theme5 font-medium">Female</label>
@@ -297,46 +292,6 @@ export default function AddTeamMember() {
         </form>
       </div>
     </div>
-        </>
-    );
+    </div>
+  )
 }
-
-
-     {/* <div>
-                <h2>Add New Team Member</h2>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={memberData.username}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={memberData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="number"
-                        placeholder="Phone Number"
-                        value={memberData.number}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={memberData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                    <button type="submit">Add Member</button>
-                </form>
-            </div> */}

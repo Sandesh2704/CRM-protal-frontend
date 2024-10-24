@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import RagistrationForm from '../pages/RagistrationForm';
 import Login from '../pages/Login';
 import Logout from '../pages/Logout';
-import FounderRoutes from '../differentRoutes/FounderRoutes';
-import ManagerRoutes from '../differentRoutes/ManagerRoutes';
-import TeamLeaderRoutes from '../differentRoutes/TeamLeaderRoutes';
-import EmployeeRoutes from '../differentRoutes/EmployeeRoutes';
+import FounderRoutes from '../RoutesByPosition/FounderRoutes';
+import ManagerRoutes from '../RoutesByPosition/ManagerRoutes';
+import TeamLeaderRoutes from '../RoutesByPosition/TeamLeaderRoutes';
+import EmployeeRoutes from '../RoutesByPosition/EmployeeRoutes';
 
 import { useAuth } from '../authProvider/AuthProvider';
 

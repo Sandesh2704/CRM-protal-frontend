@@ -1,18 +1,18 @@
-
+import React from 'react'
 import { useLocation } from 'react-router-dom';
 
-export default function ProfileCardDetail() {
-
-  const location = useLocation();
-  const memberDetails = location.state?.memberDetails;  
-  if (!memberDetails) {
-    return <div>No member details available.</div>;
-  }
-
-  const { username, JobPosition, email, phone, profileIMG, bio, joinedAt } = memberDetails;
+export default function TeamLeaderDetails() {
+    const location = useLocation();
+    const memberDetails = location.state?.memberDetails;  
+    if (!memberDetails) {
+      return <div>No member details available.</div>;
+    }
+  
+    const { username, JobPosition, email, phone, profileIMG, bio, joinedAt } = memberDetails;
 
   return (
     <div>
+        <div>
       <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6">
         <div className="photo-wrapper p-4">
           <img className="w-40 h-40 rounded-full mx-auto" src={`${process.env.REACT_APP_DOMAIN_URL}/${profileIMG}`} alt={username} />
@@ -32,6 +32,7 @@ export default function ProfileCardDetail() {
           </ul>
         </div>
       </div>
+    </div>
     </div>
   )
 }

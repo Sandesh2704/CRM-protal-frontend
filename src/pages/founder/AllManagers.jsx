@@ -1,8 +1,71 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function AllManagers() {
+
+  const [managers, setManagers] = useState([]);
+
+  useEffect(() => {
+      axios.get(`${process.env.REACT_APP_DOMAIN_URL}/auth/registerUser`, {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+      })
+      .then(response => {
+          const users = response.data.users;  // Assuming the API returns a users array
+          const managers = users.filter(user => user.jobPosition === 'Manager'); // Filter only managers
+          setManagers(managers);  // Set managers in state
+      })
+      .catch(error => {
+          console.error("There was an error fetching the data!", error);
+      });
+  }, []);
+  console.log('managers0', managers)
+
   return (
-    <div>AllManagers</div>
+    <div>
+        <div>
+                <h2>Your Team Members</h2>
+                <div className='grid grid-cols-4 gap-4'>
+
+                    {
+                        managers.map((item, index) => {
+                            const { JobPosition, username, email, profileIMG, _id } = item;
+                            return (
+                                <div className="bg-white shadow-md rounded-lg py-3" key={index}>
+                                    <div className="photo-wrapper p-2">
+                                        <img className="w-40 h-40 rounded-full mx-auto" src={`${process.env.REACT_APP_DOMAIN_URL}/${profileIMG}`} alt="John Doe" />
+                                    </div>
+                                    <div className="p-2">
+                                        <h3 className="text-center text-xl text-gray-900 font-medium leading-8">{username}</h3>
+                                        <div className="text-center text-gray-400 text-xs font-semibold">
+                                            <p>{JobPosition}</p>
+                                        </div>
+                                        <table className="text-xs my-3">
+                                            <tbody>
+                                                <tr>
+                                                    <td className="px-2 py-2 text-gray-500 font-semibold">Phone</td>
+                                                    <td className="px-2 py-2">{username}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="px-2 py-2 text-gray-500 font-semibold">Email</td>
+                                                    <td className="px-2 py-2">{email}</td>
+                                                </tr>
+                                            </tbody></table>
+                                        <div className="text-center mt-3">
+                                            <Link to={`/team-leader/team-member-detail/${_id}`}
+                                                state={{ memberDetails: item }}
+                                                className="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium" >View Profile</Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }
+                </div>
+            </div>
+    </div>
   )
 }
 

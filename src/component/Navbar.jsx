@@ -8,7 +8,6 @@ import woman from '../assets/woman.png'
 import { useAuth } from '../authProvider/AuthProvider';
 import logo from '../assets/crm-logo.png'
 
-
 export default function Navbar({ toggleSidebar, isOpen }) {
   const { user } = useAuth();
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -35,23 +34,23 @@ export default function Navbar({ toggleSidebar, isOpen }) {
         </button>
 
         <div className={`${!isOpen ? 'flex' : 'hidden'}`}>
-<img src={logo} alt="logo" className='w-32'/>
-          </div>
-        
+          <img src={logo} alt="logo" className='w-32' />
+        </div>
+
         <div className='flex items-center gap-5'>
           <button onClick={toggleFullscreen} className="bg-blue-200/50 rounded-full p-3 hidden lg:flex">
             {
               isFullscreen ? <MdOutlineZoomInMap className="text-lg" /> : <TbZoomInAreaFilled className="text-xl" />
             }
           </button>
-          <div className='relative   group'>
+          <div className='relative group'>
             <div className='flex items-center gap-2 '>
               <div className="rounded-full focus:outline-none focus:ring">
                 <img src={user.gender === 'male' ? man : woman} alt="img1" className="w-9 lg:w-10  rounded-full" />
               </div>
               <div className=" hidden xl:flex flex-col">
                 <h2 className="text-lg  text-black">{user.username || 'Unavailable'} </h2>
-                <span className="text-xs text-[#787878]" style={{ marginBottom: 0 }}>{ user.jobPosition || 'Unavailable'} </span>
+                <span className="text-xs text-[#787878]" style={{ marginBottom: 0 }}>{user.jobPosition || 'Unavailable'} </span>
               </div>
             </div>
             <div className='absolute  bg-white mt-6  right-0  w-32 shadow-lg shadow-black/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity'>
